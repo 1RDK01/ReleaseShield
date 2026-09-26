@@ -1,0 +1,3 @@
+@echo off
+echo Opening ReleaseShield Dashboard in your browser...
+start http://localhost:3000

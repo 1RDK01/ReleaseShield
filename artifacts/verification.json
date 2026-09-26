@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-09-26T04:36:18.274264",
+  "all_passed": true,
+  "commands": [
+    {
+      "label": "Backend Tests",
+      "command": "python -m pytest tests/ -q --tb=short",
+      "passed": true,
+      "return_code": 0,
+      "duration_seconds": 0.85,
+      "test_count": 27,
+      "pass_count": 27,
+      "stdout_excerpt": "...........................                                              [100%]\n============================== warnings summary ===============================\nbackend\\schemas\\payment.py:27\n  C:\\Users\\USER\\Desktop\\new project hackaton\\demo-repo\\tests\\..\\backend\\schemas\\payment.py:27: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pyd"
+    },
+    {
+      "label": "TypeScript Check",
+      "command": "C:\\Users\\USER\\AppData\\Local\\Microsoft\\WinGet\\Packages\\OpenJS.NodeJS.LTS_Microsoft.Winget.Source_8wekyb3d8bbwe\\node-v24.19.0-win-x64\\node.exe C:\\Users\\USER\\Desktop\\new project hackaton\\demo-repo\\frontend\\node_modules\\typescript\\bin\\tsc --noEmit",
+      "passed": true,
+      "return_code": 0,
+      "duration_seconds": 0.79,
+      "test_count": null,
+      "pass_count": null,
+      "stdout_excerpt": ""
+    },
+    {
+      "label": "Frontend Tests",
+      "command": "C:\\Users\\USER\\AppData\\Local\\Microsoft\\WinGet\\Packages\\OpenJS.NodeJS.LTS_Microsoft.Winget.Source_8wekyb3d8bbwe\\node-v24.19.0-win-x64\\node.exe C:\\Users\\USER\\Desktop\\new project hackaton\\demo-repo\\frontend\\test_runner.mjs",
+      "passed": true,
+      "return_code": 0,
+      "duration_seconds": 0.06,
+      "test_count": 9,
+      "pass_count": 9,
+      "stdout_excerpt": "Running frontend unit tests...\n  [PASS] Payment.ts exports formatAmount\n  [PASS] Payment.ts exports isValidAmount\n  [PASS] formatAmount handles decimal input\n  [PASS] isValidAmount handles decimal input\n  [PASS] Payment interface has required fields\n  [PASS] PaymentSummary interface defined\n  [PASS] PaymentCreate interface defined\n  [PASS] ProcessingFeeResponse interface defined\n  [PASS] PaymentStatus covers lifecycle states\n\nFrontend test summary: 9 passed, 0 failed\n"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "generated_at": "2026-09-26T04:36:18.272623",
+  "source_change": "Payment.amount: Integer \u2192 Numeric(10,2)",
+  "changed_symbols": [
+    "amount",
+    "py",
+    "ts",
+    "Payment.amount (SQLAlchemy Column type)",
+    "PaymentCreate.amount (Pydantic field type)"
+  ],
+  "developer_changed_files": [
+    "backend/models/payment.py"
+  ],
+  "bob_discovered_files": [
+    {
+      "path": "backend/schemas/payment.py",
+      "change_type": "bob_discovered",
+      "reason": "PaymentCreate.amount uses `int` type annotation and validates isinstance(amount, int).",
+      "risk_level": "critical"
+    },
+    {
+      "path": "backend/services/payment_service.py",
+      "change_type": "bob_discovered",
+      "reason": "validate_amount() checks isinstance(amount, int) \u2014 will reject Decimal.",
+      "risk_level": "critical"
+    },
+    {
+      "path": "backend/api/payments.py",
+      "change_type": "bob_discovered",
+      "reason": "Endpoint returns amount values \u2014 API contract changes from integer to decimal.",
+      "risk_level": "high"
+    },
+    {
+      "path": "frontend/src/types/Payment.ts",
+      "change_type": "bob_discovered",
+      "reason": "Payment.amount typed as `number` with isValidAmount() checking Number.isInteger().",
+      "risk_level": "critical"
+    },
+    {
+      "path": "frontend/src/api/payments.ts",
+      "change_type": "bob_discovered",
+      "reason": "createPayment() validates Number.isInteger(data.amount) \u2014 will reject decimal.",
+      "risk_level": "medium"
+    },
+    {
+      "path": "frontend/src/components/PaymentCard.tsx",
+      "change_type": "bob_discovered",
+      "reason": "Uses integer arithmetic for fee calculation. Renders \"cents (integer)\" label.",
+      "risk_level": "high"
+    },
+    {
+      "path": "tests/test_payments.py",
+      "change_type": "bob_discovered",
+      "reason": "Tests explicitly assert isinstance(amount, int).",
+      "risk_level": "critical"
+    },
+    {
+      "path": "fixtures/payments.json",
+      "change_type": "bob_discovered",
+      "reason": "All amounts are integers (9999, 4999 etc.).",
+      "risk_level": "medium"
+    }
+  ],
+  "dependency_relationships": [
+    {
+      "source": "backend/models/payment.py",
+      "target": "backend/schemas/payment.py",
+      "relationship": "defines_type"
+    },
+    {
+      "source": "backend/models/payment.py",
+      "target": "backend/services/payment_service.py",
+      "relationship": "uses_model"
+    },
+    {
+      "source": "backend/models/payment.py",
+      "target": "backend/api/payments.py",
+      "relationship": "exposes_api"
+    },
+    {
+      "source": "backend/models/payment.py",
+      "target": "frontend/src/types/Payment.ts",
+      "relationship": "mirrors_type"
+    },
+    {
+      "source": "backend/models/payment.py",
+      "target": "frontend/src/api/payments.ts",
+      "relationship": "calls_api"
+    },
+    {
+      "source": "backend/models/payment.py",
+      "target": "frontend/src/components/PaymentCard.tsx",
+      "relationship": "renders"
+    },
+    {
+      "source": "backend/models/payment.py",
+      "target": "tests/test_payments.py",
+      "relationship": "tests"
+    },
+    {
+      "source": "backend/models/payment.py",
+      "target": "fixtures/payments.json",
+      "relationship": "fixtures"
+    }
+  ],
+  "findings": [
+    {
+      "id": "fde4ecdb",
+      "title": "API CONTRACT MISMATCH",
+      "severity": "critical",
+      "description": "The backend model now uses decimal/numeric precision while Pydantic schemas and TypeScript types still enforce integer semantics.",
+      "impacted_files": [
+        "backend/schemas/payment.py",
+        "frontend/src/types/Payment.ts"
+      ]
+    },
+    {
+      "id": "e8f9e9a5",
+      "title": "TEST ASSUMPTION INVALID",
+      "severity": "high",
+      "description": "Payment tests explicitly assert isinstance(amount, int) and test that float values raise validation errors.",
+      "impacted_files": [
+        "tests/test_payments.py"
+      ]
+    },
+    {
+      "id": "051f8685",
+      "title": "DATABASE MIGRATION REQUIRED",
+      "severity": "critical",
+      "description": "The payments table uses an INTEGER column for amount. Changing the ORM to Numeric requires a database schema migration.",
+      "impacted_files": [
+        "migrations/001_create_payments.sql"
+      ]
+    },
+    {
+      "id": "50e40cd3",
+      "title": "FRONTEND DISPLAY LOGIC INCONSISTENT",
+      "severity": "high",
+      "description": "PaymentCard component uses integer arithmetic to calculate fees and renders 'cents (integer)' label which is now incorrect.",
+      "impacted_files": [
+        "frontend/src/types/Payment.ts",
+        "frontend/src/api/payments.ts",
+        "frontend/src/components/PaymentCard.tsx"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+*.bak
+.pytest_cache/
+node_modules/
+*.tsbuildinfo
+.bob_prompt_tmp.txt
+.next/
+

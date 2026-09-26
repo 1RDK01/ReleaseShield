@@ -1,0 +1,12 @@
+{
+  "name": "releaseshield-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ReleaseShield - AI-powered Change Impact & Release Readiness Engine for IBM Bob 2.0",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix frontend start",
+    "typecheck": "npm --prefix frontend run typecheck"
+  }
+}

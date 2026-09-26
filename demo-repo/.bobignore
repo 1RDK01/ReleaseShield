@@ -1,0 +1,59 @@
+# ReleaseShield Bob Ignore Rules
+# Never expose secrets, credentials, or transient build artifacts to Bob
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+*.egg-info/
+.eggs/
+
+# Testing and coverage
+.coverage
+coverage/
+htmlcov/
+.pytest_cache/
+.tox/
+nosetests.xml
+coverage.xml
+
+# IDE and OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.bak
+
+# Temporary files
+*.tmp
+*.log
+.bob_prompt_tmp.txt

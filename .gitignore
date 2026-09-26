@@ -1,0 +1,26 @@
+# Git ignore for ReleaseShield
+.env
+.env.local
+.env.*.local
+node_modules/
+.next/
+out/
+build/
+dist/
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+.Python
+*.bak
+.pytest_cache/
+.coverage
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.bob_prompt_tmp.txt
+*.tsbuildinfo
+demo-repo/.git/
